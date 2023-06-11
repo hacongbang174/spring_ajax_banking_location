@@ -23,8 +23,8 @@ public interface ICustomerService extends IGeneralService<Customer, Long> {
     Optional<Customer> findByIdAndDeletedFalse(Long id);
 
     void suspendCustomer(Long id);
-    Boolean existsByEmail(String email);
-    boolean existsByEmailAndIdIsNot(String email, Long id);
-    Boolean existsByPhone(String phone);
-    boolean existsByPhoneAndIdIsNot(String phone, Long id);
+    Boolean existsByEmailAndDeletedIsFalse(String email);
+    boolean existsByEmailAndIdIsNotAndDeletedIsFalse(String email, Long id);
+    Boolean existsByPhoneAndDeletedIsFalse(String phone);
+    boolean existsByPhoneAndIdIsNotAndDeletedIsFalse(String phone, Long id);
 }

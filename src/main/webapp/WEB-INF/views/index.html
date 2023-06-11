@@ -65,6 +65,7 @@
 <script src="/assets/jquery/jquery-3.7.0.min.js"></script>
 <script src="/assets/bootstrap/v5.3.0/js/bootstrap.bundle.min.js"></script>
 <script src="/assets/sweetalert2/sweetalert2.all.min.js"></script>
+<script src="/assets/jquery/jquery.validate.js"></script>
 
 <script src="/assets/js/appBase.js"></script>
 
@@ -103,6 +104,7 @@
     page.elements.tblWithdrawBody = $('#tbHistoryWithdraw tbody')
     page.elements.tblTransferBody = $('#tbHistoryTransfer tbody')
 
+    page.dialogs.elements.frmCreateCustomer = $('#frmCreateCustomer');
     page.dialogs.elements.modalCreate = $('#mdCreate')
     page.dialogs.elements.errorCreateArea = $('#mdCreate .error-area')
     page.dialogs.elements.fullNameCr = $('#fullNameCr')
@@ -964,9 +966,99 @@
     }
 
 
+
+    $('.modal').on('hidden.bs.modal', () => {
+        page.dialogs.elements.frmCreateCustomer[0].reset();
+        page.commands.resetLocationRegion();
+        page.dialogs.elements.frmCreateCustomer.validate().resetForm();
+        // page.dialogs.elements.frmUpdateCustomer[0].reset();
+        // page.dialogs.elements.frmDeposit[0].reset();
+        // page.dialogs.elements.frmWithdraw[0].reset();
+        // page.dialogs.elements.frmTransfer[0].reset();
+        $('.modal .modal-alert-danger').empty().removeClass("show").addClass("hide");
+        $('.modal').find("input.error").removeClass("error");
+    })
+
+    page.dialogs.elements.frmCreateCustomer.validate({
+        rules: {
+            fullNameCr: {
+                required: true,
+                minlength: 5,
+                maxlength: 50
+            },
+            emailCr: {
+                required: true
+            },
+            phoneCr: {
+                required: true,
+                maxlength: 10
+            },
+            provinceCr: {
+                required: true,
+            },
+            districtCr: {
+                required: true,
+            },
+            wardCr: {
+                required: true,
+            },
+            addressCr: {
+                required: true,
+                minlength: 5,
+                maxlength: 50
+            }
+
+        },
+        messages: {
+            fullNameCr: {
+                required: 'Họ tên không được để trống',
+                minlength: 'Họ tên không được nhỏ hơn ${0} ký tự',
+                maxlength: 'Họ tên không được quá ${0} ký tự'
+            },
+            emailCr: {
+                required: 'Email không được để trống'
+            },
+            phoneCr: {
+                required: 'Số điện thoại không được để trống',
+                maxlength: 'Số điện thoại không được quá ${0} ký tự số'
+            },
+            provinceCr: {
+                required: "Select province",
+            },
+            districtCr: {
+                required: "Select district",
+            },
+            wardCr: {
+                required: "Select ward"
+            },
+            addressCr: {
+                required: 'Địa chỉ không được để trống',
+                minlength: 'Địa chỉ không được nhỏ hơn ${0} ký tự',
+                maxlength: 'Địa chỉ không được quá ${0} ký tự'
+            }
+        },
+        errorLabelContainer: "#mdCreate .modal-alert-danger",
+        errorPlacement: function (error, element) {
+            error.appendTo("#mdCreate .modal-alert-danger");
+        },
+        showErrors: function (errorMap, errorList) {
+            if (this.numberOfInvalids() > 0) {
+                $("#mdCreate .modal-alert-danger").removeClass("hide").addClass("show");
+            } else {
+                $("#mdCreate .modal-alert-danger").removeClass("show").addClass("hide").empty();
+                $("#frmCreateCustomer input.error").removeClass("error");
+            }
+            this.defaultShowErrors();
+        },
+        submitHandler: function () {
+            page.dialogs.commands.handleCreate();
+        }
+    });
+
     page.initializeControlEvent = () => {
         page.dialogs.elements.btnCreate.on('click', () => {
-            page.dialogs.commands.handleCreate();
+            // page.dialogs.commands.handleCreate();
+            page.dialogs.elements.frmCreateCustomer.trigger('submit');
         })
 
         page.dialogs.elements.btnUpdate.on('click', () => {
@@ -1000,10 +1092,7 @@
     }
 
 
-    page.loadData = () => {
-        page.commands.getAllCustomers();
-
-
+    page.commands.resetLocationRegion = () => {
         page.dialogs.loadData.getAllProvinces().then(() => {
             const provinceId = page.dialogs.elements.provinceCr.val()
             page.dialogs.loadData.getAllDistricts(provinceId).then(() => {
@@ -1011,6 +1100,11 @@
                 page.dialogs.loadData.getAllWards(districtId)
             });
         });
+    }
+
+    page.loadData = () => {
+        page.commands.getAllCustomers();
+        page.commands.resetLocationRegion();
 
     }
 
@@ -1020,6 +1114,7 @@
         page.initializeControlEvent();
     })
 
+
     document.addEventListener("input", () => {
         let fee = +page.dialogs.elements.fees.val();
         let transferAmount = +page.dialogs.elements.transfer.val();
@@ -1028,46 +1123,6 @@
         page.dialogs.elements.total.val(transactionAmount);
     })
 
-    // document.addEventListener('DOMContentLoaded', function () {
-    //     // Mong muốn của chúng ta
-    //     Validator({
-    //         form: '#form-Create',
-    //         formGroupSelector: '.form-group',
-    //         errorSelector: '.form-message',
-    //         rules: [
-    //             Validator.isRequired('#fullNameCr', 'Vui lòng nhập tên đầy đủ của bạn'),
-    //             Validator.isEmail('#emailCr'),
-    //             Validator.isPhone('#phoneCr'),
-    //             Validator.isRequired('#addressCr', 'Vui lòng nhập địa chỉ đầy đủ của bạn'),
-    //         ],
-    //         onSubmit: function (data) {
-    //             // Call API
-    //             console.log(data);
-    //         }
-    //     });
-    // });
-
-    // < td
-    // className = "text-center" >
-    //     < button
-    // className = 'btn btn-outline-secondary deposit'
-    // data - id = '${obj.id}' >
-    //     < i
-    // className = "fa-solid fa-circle-plus" > < /i>
-    // </button>
-    // <button className='btn btn-outline-success withdraw' data-id='${obj.id}'>
-    //     <i className="fas fa-minus-circle"></i>
-    // </button>
-    // <button className='btn btn-outline-warning transfer' data-id='${obj.id}'>
-    //     <i className="fas fa-exchange-alt"></i>
-    // </button>
-    // <button className='btn btn-outline-primary edit' data-id='${obj.id}'>
-    //     <i className="fas fa-user-edit"></i>
-    // </button>
-    // <button className='btn btn-outline-danger delete' data-id='${obj.id}'>\
-    //     <i className="fas fa-ban"></i>
-    // </button>
-    // </td>
 
 </script>
 

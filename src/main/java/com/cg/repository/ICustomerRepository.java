@@ -70,9 +70,9 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long> {
             "WHERE c.id = :id")
     void decreaseBalance(@Param("id") long id, @Param("amount") BigDecimal amount);
 
-    Boolean existsByEmail(String email);
-    boolean existsByEmailAndIdIsNot(String email, Long id);
-    Boolean existsByPhone(String phone);
-    boolean existsByPhoneAndIdIsNot(String phone, Long id);
+    Boolean existsByEmailAndDeletedIsFalse(String email);
+    boolean existsByEmailAndIdIsNotAndDeletedIsFalse(String email, Long id);
+    Boolean existsByPhoneAndDeletedIsFalse(String phone);
+    boolean existsByPhoneAndIdIsNotAndDeletedIsFalse(String phone, Long id);
 
 }

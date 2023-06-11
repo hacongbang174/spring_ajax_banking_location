@@ -86,7 +86,6 @@ public class CustomerAPI {
 
     @PostMapping("/create")
     public ResponseEntity<?> createCustomer(@RequestBody CustomerReqDTO customerReqDTO, BindingResult bindingResult) {
-        LocationRegionReqDTO locationRegionReqDTO = customerReqDTO.getLocationRegionReqDTO();
 
         new CustomerReqDTO().validate(customerReqDTO, bindingResult);
 
@@ -94,13 +93,13 @@ public class CustomerAPI {
             return appUtils.mapErrorToResponse(bindingResult);
         }
 
-        Boolean existEmail = customerService.existsByEmail(customerReqDTO.getEmail());
+        Boolean existEmail = customerService.existsByEmailAndDeletedIsFalse(customerReqDTO.getEmail());
 
         if (existEmail) {
             throw new EmailExistsException("Email đã tồn tại");
         }
 
-        Boolean existsPhone = customerService.existsByPhone(customerReqDTO.getPhone());
+        Boolean existsPhone = customerService.existsByPhoneAndDeletedIsFalse(customerReqDTO.getPhone());
 
         if (existsPhone) {
             throw new EmailExistsException("Phone đã tồn tại");
@@ -132,10 +131,16 @@ public class CustomerAPI {
             throw new DataInputException("Mã khách hàng không tồn tại");
         }
 
-        Boolean existEmail = customerService.existsByEmailAndIdIsNot(customerReqDTO.getEmail(), id);
+        Boolean existEmail = customerService.existsByEmailAndIdIsNotAndDeletedIsFalse(customerReqDTO.getEmail(), id);
 
         if (existEmail) {
             throw new EmailExistsException("Email đã tồn tại");
+        }
+
+        Boolean existsPhone = customerService.existsByPhoneAndIdIsNotAndDeletedIsFalse(customerReqDTO.getPhone(), id);
+
+        if (existsPhone) {
+            throw new EmailExistsException("Phone đã tồn tại");
         }
 
         CustomerDTO customerDTO = customerOptional.get();
