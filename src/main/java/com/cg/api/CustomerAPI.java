@@ -85,7 +85,7 @@ public class CustomerAPI {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> createCustomer(@RequestBody CustomerReqDTO customerReqDTO, BindingResult bindingResult) {
+    public ResponseEntity<?> createCustomer(@Validated @RequestBody CustomerReqDTO customerReqDTO, BindingResult bindingResult) {
 
         new CustomerReqDTO().validate(customerReqDTO, bindingResult);
 

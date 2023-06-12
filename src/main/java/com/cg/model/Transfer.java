@@ -32,16 +32,16 @@ public class Transfer extends BaseEntity {
     @JoinColumn(name = "recipient_id", referencedColumnName = "id", nullable = false)
     private Customer recipient;
 
-    @Column(name = "transfer_amount", precision = 10, scale = 0, nullable = false)
+    @Column(name = "transfer_amount", precision = 12, scale = 0, nullable = false)
     private BigDecimal transferAmount;
 
     @Column (nullable = false)
     private Long fees;
 
-    @Column(name = "fees_amount", precision = 10, scale = 0, nullable = false)
+    @Column(name = "fees_amount", precision = 12, scale = 0, nullable = false)
     private BigDecimal feesAmount;
 
-    @Column(name = "transaction_amount", precision = 10, scale = 0, nullable = false)
+    @Column(name = "transaction_amount", precision = 12, scale = 0, nullable = false)
     private BigDecimal transactionAmount;
 
     public TransferDTO toTransferDTO() {

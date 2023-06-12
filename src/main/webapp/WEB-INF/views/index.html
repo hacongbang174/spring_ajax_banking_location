@@ -334,7 +334,6 @@
     page.commands.addEventChangeProvince = () => {
         page.dialogs.elements.provinceCr.on("change", function () {
             let provinceId = $(this).val();
-
             if (provinceId !== 0) {
                 page.dialogs.loadData.getAllDistricts(provinceId).then(() => {
                     let districtId = page.dialogs.elements.districtCr.val();
@@ -691,6 +690,8 @@
                 page.dialogs.elements.transactionAmountDepo.val('');
                 page.dialogs.elements.errorDepositArea.empty();
 
+                page.commands.addEventShowActionButton();
+
             })
             .fail((jqXHR) => {
                 const responseJSON = jqXHR.responseJSON
@@ -762,6 +763,8 @@
 
                 page.dialogs.elements.transactionAmountWd.val('');
                 page.dialogs.elements.errorWithdrawArea.empty();
+
+                page.commands.addEventShowActionButton();
 
 
             })
@@ -856,11 +859,7 @@
                 page.dialogs.elements.total.val('');
                 page.dialogs.elements.errorTransferArea.empty();
 
-                page.commands.addEventEdit();
-                page.commands.addEventDelete();
-                page.commands.addEventDeposit();
-                page.commands.addEventWithdraw();
-                page.commands.addEventTransfer();
+                page.commands.addEventShowActionButton();
             })
             .fail((jqXHR) => {
                 const responseJSON = jqXHR.responseJSON
@@ -1168,18 +1167,13 @@
         }
     });
 
-    $.validator.addMethod("isExceedTheBalance", function (value, element) {
-        return this.optional(element) || value > $('#amountDepo').val();
-    }, "Vượt quá định mức. Tổng tiền phải nhỏ hơn 12 chữ số");
-
     page.dialogs.elements.frmDeposit.validate({
         rules: {
             transactionAmountDepo: {
                 required: true,
                 number: true,
                 min: 100,
-                maxlength: 12,
-                isExceedTheBalance: true
+                maxlength: 12
             }
         },
         messages: {
@@ -1187,8 +1181,7 @@
                 required: 'Tiền gửi không được để trống',
                 number: 'Tiền gửi phải là một số',
                 min: 'Tiền gửi phải lớn hơn hoặc bằng ${0}',
-                maxlength: 'Tiền gửi không được quá ${0} chữ số',
-                isExceedTheBalance: 'Vượt quá định mức. Tổng tiền phải nhỏ hơn 12 chữ số'
+                maxlength: 'Tiền gửi không được quá ${0} chữ số'
             }
         },
         errorLabelContainer: "#mdDeposit .modal-alert-danger",
@@ -1237,10 +1230,10 @@
         },
         messages: {
             transactionAmountWd: {
-                required: 'Tiền gửi không được để trống',
-                number: 'Tiền gửi phải là một số',
-                min: 'Tiền gửi phải lớn hơn hoặc bằng ${0}',
-                maxlength: 'Tiền gửi không được quá ${0} chữ số',
+                required: 'Tiền rút không được để trống',
+                number: 'Tiền rút phải là một số',
+                min: 'Tiền rút phải lớn hơn hoặc bằng ${0}',
+                maxlength: 'Tiền rút không được quá ${0} chữ số',
                 isBiggerThanBalance: 'Số dư tài khoản không đủ'
             }
         },
@@ -1274,10 +1267,10 @@
         },
         messages: {
             transfer: {
-                required: 'Tiền gửi không được để trống',
-                number: 'Tiền gửi phải là một số',
-                min: 'Tiền gửi phải lớn hơn hoặc bằng ${0}',
-                maxlength: 'Tiền gửi không được quá ${0} chữ số',
+                required: 'Tiền chuyển không được để trống',
+                number: 'Tiền chuyển phải là một số',
+                min: 'Tiền chuyển phải lớn hơn hoặc bằng ${0}',
+                maxlength: 'Tiền chuyển không được quá ${0} chữ số',
                 isBiggerThanSenderBalance: 'Số dư tài khoản người gửi không đủ'
             }
         },

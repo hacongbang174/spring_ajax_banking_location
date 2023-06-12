@@ -30,7 +30,7 @@ public class Withdraw {
     @JoinColumn(name = "customer_id", referencedColumnName = "id", nullable = false)
     private Customer customer;
 
-    @Column(name = "transaction_amount", precision = 10, scale = 0, nullable = false)
+    @Column(name = "transaction_amount", precision = 12, scale = 0, nullable = false)
     private BigDecimal transactionAmount;
 
     public WithdrawDTO toWithdrawDTO() {

@@ -10,6 +10,7 @@ import lombok.experimental.Accessors;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 
 @NoArgsConstructor
@@ -22,6 +23,8 @@ public class CustomerReqDTO implements Validator {
     private String fullName;
     private String email;
     private String phone;
+
+    @Valid
     private LocationRegionReqDTO locationRegionReqDTO;
 
     public Customer toCustomer(Long id, BigDecimal balance) {

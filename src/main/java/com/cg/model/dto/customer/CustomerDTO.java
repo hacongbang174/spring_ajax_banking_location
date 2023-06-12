@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 
 @NoArgsConstructor

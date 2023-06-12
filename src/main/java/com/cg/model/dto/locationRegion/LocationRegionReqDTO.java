@@ -10,6 +10,8 @@ import lombok.experimental.Accessors;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import javax.validation.constraints.NotEmpty;
+
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,6 +26,8 @@ public class LocationRegionReqDTO {
     private String districtName;
     private String wardId;
     private String wardName;
+
+    @NotEmpty(message = "Địa chỉ không được để trống")
     private String address;
 
 

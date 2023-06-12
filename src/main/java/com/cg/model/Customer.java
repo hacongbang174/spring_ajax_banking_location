@@ -36,7 +36,7 @@ public class Customer extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String phone;
 
-    @Column(precision = 10, scale = 0, nullable = false)
+    @Column(precision = 12, scale = 0, nullable = false)
     private BigDecimal balance;
 
     @OneToOne
