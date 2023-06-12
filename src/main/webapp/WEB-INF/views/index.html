@@ -106,7 +106,7 @@
 
     page.dialogs.elements.frmCreateCustomer = $('#frmCreateCustomer');
     page.dialogs.elements.modalCreate = $('#mdCreate')
-    page.dialogs.elements.errorCreateArea = $('#mdCreate .error-area')
+    page.dialogs.elements.errorCreateArea = $('#mdCreate .modal-body .modal-alert-danger')
     page.dialogs.elements.fullNameCr = $('#fullNameCr')
     page.dialogs.elements.emailCr = $('#emailCr')
     page.dialogs.elements.phoneCr = $('#phoneCr')
@@ -117,8 +117,9 @@
     page.dialogs.elements.btnCreate = $('#btnCreate')
 
 
+    page.dialogs.elements.frmUpdateCustomer = $('#frmUpdateCustomer');
     page.dialogs.elements.modalUpdate = $('#mdUpdate')
-    page.dialogs.elements.errorUpdateArea = $('#mdUpdate .error-area')
+    page.dialogs.elements.errorUpdateArea = $('#mdUpdate .modal-body .modal-alert-danger')
     page.dialogs.elements.customerIdUp = $('#customerIdUp')
     page.dialogs.elements.fullNameUp = $('#fullNameUp')
     page.dialogs.elements.emailUp = $('#emailUp')
@@ -130,8 +131,9 @@
     page.dialogs.elements.addressUp = $('#addressUp')
     page.dialogs.elements.btnUpdate = $('#btnUpdate')
 
+    page.dialogs.elements.frmDeposit = $('#frmDeposit');
     page.dialogs.elements.modalDeposit = $('#mdDeposit');
-    page.dialogs.elements.errorDepositArea = $('#mdDeposit .error-area')
+    page.dialogs.elements.errorDepositArea = $('#mdDeposit .modal-body .modal-alert-danger')
     page.dialogs.elements.customerIdDepo = $('#customerIdDepo')
     page.dialogs.elements.fullNameDepo = $('#fullNameDepo');
     page.dialogs.elements.emailDepo = $('#emailDepo');
@@ -140,8 +142,9 @@
     page.dialogs.elements.transactionAmountDepo = $('#transactionAmountDepo');
     page.dialogs.elements.btnDeposit = $('#btnDeposit')
 
+    page.dialogs.elements.frmWithdraw = $('#frmWithdraw');
     page.dialogs.elements.modalWithdraw = $('#mdWithdraw');
-    page.dialogs.elements.errorWithdrawArea = $('#mdWithdraw .error-area')
+    page.dialogs.elements.errorWithdrawArea = $('#mdWithdraw .modal-body .modal-alert-danger')
     page.dialogs.elements.customerIdWd = $('#customerIdWd')
     page.dialogs.elements.fullNameWd = $('#fullNameWd');
     page.dialogs.elements.emailWd = $('#emailWd');
@@ -150,8 +153,9 @@
     page.dialogs.elements.transactionAmountWd = $('#transactionAmountWd');
     page.dialogs.elements.btnWithdraw = $('#btnWithdraw')
 
+    page.dialogs.elements.frmTransfer = $('#frmTransfer');
     page.dialogs.elements.modalTransfer = $('#mdTransfer');
-    page.dialogs.elements.errorTransferArea = $('#mdTransfer .error-area')
+    page.dialogs.elements.errorTransferArea = $('#mdTransfer .modal-body .modal-alert-danger')
     page.dialogs.elements.senderIdTf = $('#senderIdTf');
     page.dialogs.elements.senderNameTf = $('#senderNameTf');
     page.dialogs.elements.emailTf = $('#emailTf');
@@ -622,12 +626,17 @@
             })
             .fail((jqXHR) => {
                 const responseJSON = jqXHR.responseJSON
-                let str = '<ul>'
+                // let str = '<ul>'
+                let str = '';
                 $.each(responseJSON, (k, v) => {
-                    str += `<li>${v}</li>`
+                    // str += `<li>${v}</li>`
+                    str += `<label for="${k}Cre">${v}</label>`;
                 })
-                str += '</ul>'
-                page.dialogs.elements.errorCreateArea.empty().append(str);
+                // str += '</ul>'
+
+                page.dialogs.elements.errorCreateArea.append(str);
+                page.dialogs.elements.errorCreateArea.removeClass('hide').addClass('show');
+                // page.dialogs.elements.errorCreateArea.empty().append(str);
             })
     };
 
@@ -685,12 +694,19 @@
             })
             .fail((jqXHR) => {
                 const responseJSON = jqXHR.responseJSON
-                let str = '<ul>'
+                // let str = '<ul>'
+                // $.each(responseJSON, (k, v) => {
+                //     str += `<li>${v}</li>`
+                // })
+                // str += '</ul>'
+                // page.dialogs.elements.errorDepositArea.empty().append(str);
+
+                let str = '';
                 $.each(responseJSON, (k, v) => {
-                    str += `<li>${v}</li>`
+                    str += `<label for="${k}Cre">${v}</label>`;
                 })
-                str += '</ul>'
-                page.dialogs.elements.errorDepositArea.empty().append(str);
+                page.dialogs.elements.errorDepositArea.append(str);
+                page.dialogs.elements.errorDepositArea.removeClass('hide').addClass('show');
             })
     }
 
@@ -751,12 +767,19 @@
             })
             .fail((jqXHR) => {
                 const responseJSON = jqXHR.responseJSON
-                let str = '<ul>'
+                // let str = '<ul>'
+                // $.each(responseJSON, (k, v) => {
+                //     str += `<li>${v}</li>`
+                // })
+                // str += '</ul>'
+                // page.dialogs.elements.errorWithdrawArea.empty().append(str);
+
+                let str = '';
                 $.each(responseJSON, (k, v) => {
-                    str += `<li>${v}</li>`
+                    str += `<label for="${k}Cre">${v}</label>`;
                 })
-                str += '</ul>'
-                page.dialogs.elements.errorWithdrawArea.empty().append(str);
+                page.dialogs.elements.errorWithdrawArea.append(str);
+                page.dialogs.elements.errorWithdrawArea.removeClass('hide').addClass('show');
             })
     }
 
@@ -841,12 +864,19 @@
             })
             .fail((jqXHR) => {
                 const responseJSON = jqXHR.responseJSON
-                let str = '<ul>'
+                // let str = '<ul>'
+                // $.each(responseJSON, (k, v) => {
+                //     str += `<li>${v}</li>`
+                // })
+                // str += '</ul>'
+                // page.dialogs.elements.errorTransferArea.empty().append(str);
+
+                let str = '';
                 $.each(responseJSON, (k, v) => {
-                    str += `<li>${v}</li>`
+                    str += `<label for="${k}Cre">${v}</label>`;
                 })
-                str += '</ul>'
-                page.dialogs.elements.errorTransferArea.empty().append(str);
+                page.dialogs.elements.errorTransferArea.append(str);
+                page.dialogs.elements.errorTransferArea.removeClass('hide').addClass('show');
             })
     }
 
@@ -944,12 +974,19 @@
             })
             .fail((jqXHR) => {
                 const responseJSON = jqXHR.responseJSON
-                let str = '<ul>'
+                // let str = '<ul>'
+                // $.each(responseJSON, (k, v) => {
+                //     str += `<li>${v}</li>`
+                // })
+                // str += '</ul>'
+                // page.dialogs.elements.errorUpdateArea.empty().append(str);
+
+                let str = '';
                 $.each(responseJSON, (k, v) => {
-                    str += `<li>${v}</li>`
+                    str += `<label for="${k}Cre">${v}</label>`;
                 })
-                str += '</ul>'
-                page.dialogs.elements.errorUpdateArea.empty().append(str);
+                page.dialogs.elements.errorUpdateArea.append(str);
+                page.dialogs.elements.errorUpdateArea.removeClass('hide').addClass('show');
             })
     }
 
@@ -971,10 +1008,10 @@
         page.dialogs.elements.frmCreateCustomer[0].reset();
         page.commands.resetLocationRegion();
         page.dialogs.elements.frmCreateCustomer.validate().resetForm();
-        // page.dialogs.elements.frmUpdateCustomer[0].reset();
-        // page.dialogs.elements.frmDeposit[0].reset();
-        // page.dialogs.elements.frmWithdraw[0].reset();
-        // page.dialogs.elements.frmTransfer[0].reset();
+        page.dialogs.elements.frmUpdateCustomer[0].reset();
+        page.dialogs.elements.frmDeposit[0].reset();
+        page.dialogs.elements.frmWithdraw[0].reset();
+        page.dialogs.elements.frmTransfer[0].reset();
         $('.modal .modal-alert-danger').empty().removeClass("show").addClass("hide");
         $('.modal').find("input.error").removeClass("error");
     })
@@ -1055,6 +1092,213 @@
         }
     });
 
+    page.dialogs.elements.frmUpdateCustomer.validate({
+        rules: {
+            fullNameUp: {
+                required: true,
+                minlength: 5,
+                maxlength: 50
+            },
+            emailUp: {
+                required: true
+            },
+            phoneUp: {
+                required: true,
+                maxlength: 10
+            },
+            provinceUp: {
+                required: true,
+            },
+            districtUp: {
+                required: true,
+            },
+            wardUp: {
+                required: true,
+            },
+            addressUp: {
+                required: true,
+                minlength: 5,
+                maxlength: 50
+            }
+
+        },
+        messages: {
+            fullNameUp: {
+                required: 'Họ tên không được để trống',
+                minlength: 'Họ tên không được nhỏ hơn ${0} ký tự',
+                maxlength: 'Họ tên không được quá ${0} ký tự'
+            },
+            emailUp: {
+                required: 'Email không được để trống'
+            },
+            phoneUp: {
+                required: 'Số điện thoại không được để trống',
+                maxlength: 'Số điện thoại không được quá ${0} ký tự số'
+            },
+            provinceUp: {
+                required: "Select province",
+            },
+            districtUp: {
+                required: "Select district",
+            },
+            wardUp: {
+                required: "Select ward"
+            },
+            addressUp: {
+                required: 'Địa chỉ không được để trống',
+                minlength: 'Địa chỉ không được nhỏ hơn ${0} ký tự',
+                maxlength: 'Địa chỉ không được quá ${0} ký tự'
+            }
+        },
+        errorLabelContainer: "#mdUpdate .modal-alert-danger",
+        errorPlacement: function (error, element) {
+            error.appendTo("#mdUpdate .modal-alert-danger");
+        },
+        showErrors: function (errorMap, errorList) {
+            if (this.numberOfInvalids() > 0) {
+                $("#mdUpdate .modal-alert-danger").removeClass("hide").addClass("show");
+            } else {
+                $("#mdUpdate .modal-alert-danger").removeClass("show").addClass("hide").empty();
+                $("#frmUpdateCustomer input.error").removeClass("error");
+            }
+            this.defaultShowErrors();
+        },
+        submitHandler: function () {
+            page.dialogs.commands.handleUpdate();
+        }
+    });
+
+    $.validator.addMethod("isExceedTheBalance", function (value, element) {
+        return this.optional(element) || value > $('#amountDepo').val();
+    }, "Vượt quá định mức. Tổng tiền phải nhỏ hơn 12 chữ số");
+
+    page.dialogs.elements.frmDeposit.validate({
+        rules: {
+            transactionAmountDepo: {
+                required: true,
+                number: true,
+                min: 100,
+                maxlength: 12,
+                isExceedTheBalance: true
+            }
+        },
+        messages: {
+            transactionAmountDepo: {
+                required: 'Tiền gửi không được để trống',
+                number: 'Tiền gửi phải là một số',
+                min: 'Tiền gửi phải lớn hơn hoặc bằng ${0}',
+                maxlength: 'Tiền gửi không được quá ${0} chữ số',
+                isExceedTheBalance: 'Vượt quá định mức. Tổng tiền phải nhỏ hơn 12 chữ số'
+            }
+        },
+        errorLabelContainer: "#mdDeposit .modal-alert-danger",
+        errorPlacement: function (error, element) {
+            error.appendTo("#mdDeposit .modal-alert-danger");
+        },
+        showErrors: function (errorMap, errorList) {
+            if (this.numberOfInvalids() > 0) {
+                $("#mdDeposit .modal-alert-danger").removeClass("hide").addClass("show");
+            } else {
+                $("#mdDeposit .modal-alert-danger").removeClass("show").addClass("hide").empty();
+                $("#frmDeposit input.error").removeClass("error");
+            }
+            this.defaultShowErrors();
+        },
+        submitHandler: function () {
+            page.dialogs.commands.handleDeposit();
+        }
+    });
+
+    $.validator.addMethod("isBiggerThanBalance", function (value, element) {
+        return this.optional(element) || value < $('#amountWd').val();
+    }, "Số dư tài khoản không đủ");
+
+
+
+    $.validator.addMethod("isBiggerThanSenderBalance", function (value, element) {
+        return this.optional(element) || page.commands.checkSenderBalance();
+    }, "Số dư tài khoản người gửi không đủ");
+
+    page.commands.checkSenderBalance = () => {
+        let totalAmount = +page.dialogs.elements.total.val();
+        let senderBalance = +page.dialogs.elements.balanceTf.val();
+        return totalAmount < senderBalance;
+    }
+
+    page.dialogs.elements.frmWithdraw.validate({
+        rules: {
+            transactionAmountWd: {
+                required: true,
+                number: true,
+                min: 100,
+                maxlength: 12,
+                isBiggerThanBalance: true
+            }
+        },
+        messages: {
+            transactionAmountWd: {
+                required: 'Tiền gửi không được để trống',
+                number: 'Tiền gửi phải là một số',
+                min: 'Tiền gửi phải lớn hơn hoặc bằng ${0}',
+                maxlength: 'Tiền gửi không được quá ${0} chữ số',
+                isBiggerThanBalance: 'Số dư tài khoản không đủ'
+            }
+        },
+        errorLabelContainer: "#mdWithdraw .modal-alert-danger",
+        errorPlacement: function (error, element) {
+            error.appendTo("#mdWithdraw .modal-alert-danger");
+        },
+        showErrors: function (errorMap, errorList) {
+            if (this.numberOfInvalids() > 0) {
+                $("#mdWithdraw .modal-alert-danger").removeClass("hide").addClass("show");
+            } else {
+                $("#mdWithdraw .modal-alert-danger").removeClass("show").addClass("hide").empty();
+                $("#frmWithdraw input.error").removeClass("error");
+            }
+            this.defaultShowErrors();
+        },
+        submitHandler: function () {
+            page.dialogs.commands.handleWithdraw();
+        }
+    });
+
+    page.dialogs.elements.frmTransfer.validate({
+        rules: {
+            transfer: {
+                required: true,
+                number: true,
+                min: 100,
+                maxlength: 12,
+                isBiggerThanSenderBalance: true
+            }
+        },
+        messages: {
+            transfer: {
+                required: 'Tiền gửi không được để trống',
+                number: 'Tiền gửi phải là một số',
+                min: 'Tiền gửi phải lớn hơn hoặc bằng ${0}',
+                maxlength: 'Tiền gửi không được quá ${0} chữ số',
+                isBiggerThanSenderBalance: 'Số dư tài khoản người gửi không đủ'
+            }
+        },
+        errorLabelContainer: "#mdTransfer .modal-alert-danger",
+        errorPlacement: function (error, element) {
+            error.appendTo("#mdTransfer .modal-alert-danger");
+        },
+        showErrors: function (errorMap, errorList) {
+            if (this.numberOfInvalids() > 0) {
+                $("#mdTransfer .modal-alert-danger").removeClass("hide").addClass("show");
+            } else {
+                $("#mdTransfer .modal-alert-danger").removeClass("show").addClass("hide").empty();
+                $("#frmTransfer input.error").removeClass("error");
+            }
+            this.defaultShowErrors();
+        },
+        submitHandler: function () {
+            page.dialogs.commands.handleTransfer();
+        }
+    });
+
     page.initializeControlEvent = () => {
         page.dialogs.elements.btnCreate.on('click', () => {
             // page.dialogs.commands.handleCreate();
@@ -1062,21 +1306,21 @@
         })
 
         page.dialogs.elements.btnUpdate.on('click', () => {
-            page.dialogs.commands.handleUpdate();
+            page.dialogs.elements.frmUpdateCustomer.trigger('submit');
         })
         // page.dialogs.elements.btnDelete.on('click', () => {
         //     page.dialogs.commands.handleDelete();
         // })
 
         page.dialogs.elements.btnDeposit.on('click', () => {
-            page.dialogs.commands.handleDeposit();
+            page.dialogs.elements.frmDeposit.trigger('submit');
         })
         page.dialogs.elements.btnWithdraw.on('click', () => {
-            page.dialogs.commands.handleWithdraw();
+            page.dialogs.elements.frmWithdraw.trigger('submit');
         })
 
         page.dialogs.elements.btnTransfer.on('click', () => {
-            page.dialogs.commands.handleTransfer();
+            page.dialogs.elements.frmTransfer.trigger('submit');
         })
 
         page.dialogs.elements.btnHistoryDeposit.on('click', () => {
