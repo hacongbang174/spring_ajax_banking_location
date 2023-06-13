@@ -626,10 +626,23 @@
             .fail((jqXHR) => {
                 const responseJSON = jqXHR.responseJSON
                 // let str = '<ul>'
-                let str = '';
+                // let str = '';
+                // $.each(responseJSON, (k, v) => {
+                //     // str += `<li>${v}</li>`
+                //     str += `<label for="${k}Cre">${v}</label>`;
+                // })
+
+                let str = ''
                 $.each(responseJSON, (k, v) => {
-                    // str += `<li>${v}</li>`
-                    str += `<label for="${k}Cre">${v}</label>`;
+                    const index = page.commands.findIndexDotInString(k)
+                    if (index !== -1) {
+                        const subKey = k.substring(index + 1, k.length)
+                        str += `<label for="${subKey}Cre">${v}</label>`
+                        $('#' + subKey + 'Cre').css('border-color', '#be0f0f')
+                    }
+                    else {
+                        str += `<label for="${k}Cre">${v}</label>`
+                    }
                 })
                 // str += '</ul>'
 
@@ -980,14 +993,39 @@
                 // str += '</ul>'
                 // page.dialogs.elements.errorUpdateArea.empty().append(str);
 
-                let str = '';
+                let str = ''
                 $.each(responseJSON, (k, v) => {
-                    str += `<label for="${k}Cre">${v}</label>`;
+                    const index = page.commands.findIndexDotInString(k)
+                    if (index !== -1) {
+                        const subKey = k.substring(index + 1, k.length)
+                        str += `<label for="${subKey}Cre">${v}</label>`
+                        $('#' + subKey + 'Cre').css('border-color', '#be0f0f')
+                    }
+                    else {
+                        str += `<label for="${k}Cre">${v}</label>`
+                    }
                 })
+
+                // let str = '';
+                // $.each(responseJSON, (k, v) => {
+                //     str += `<label for="${k}Cre">${v}</label>`;
+                // })
                 page.dialogs.elements.errorUpdateArea.append(str);
                 page.dialogs.elements.errorUpdateArea.removeClass('hide').addClass('show');
             })
     }
+
+    page.commands.findIndexDotInString = (str) => {
+        let index = -1;
+        for (let i = 0; i < str.length; i++) {
+            if (str.charAt(i) === '.') {
+                index = i
+            }
+        }
+
+        return index
+    }
+
 
     page.dialogs.commands.handleHistoryDeposit = () => {
         page.commands.getAllDeposit();
