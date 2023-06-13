@@ -290,6 +290,7 @@
 
             $(document).on('click', function (event) {
                 if (!$(event.target).closest('#tbCustomer tbody tr').length && !$(event.target).closest('footer').length) {
+                    $('#tbCustomer tbody tr').find('span').removeClass('selected').addClass('unselected')
                     $('footer').addClass('hide');
                     $('footer').empty();
                 }
